@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { animate } from '@oku-ui/motion'
+import { animate } from 'motion'
 import ModalHeader from './ModalHeader.vue'
 import ModalFooter from './ModalFooter.vue'
 import CustomInput from './CustomInput.vue'
@@ -91,8 +91,10 @@ const onModalEnter = async (el, done) => {
   await animate(el, { 
     opacity: [0, 1],
     scale: [0.95, 1],
+    y: [20, 0]
   }, {
-    duration: 0.2
+    duration: 0.3,
+    easing: [0.25, 0.1, 0.25, 1]
   })
   done()
 }
@@ -101,8 +103,10 @@ const onModalLeave = async (el, done) => {
   await animate(el, { 
     opacity: [1, 0],
     scale: [1, 0.95],
+    y: [0, 20]
   }, {
-    duration: 0.2
+    duration: 0.3,
+    easing: [0.25, 0.1, 0.25, 1]
   })
   done()
 }

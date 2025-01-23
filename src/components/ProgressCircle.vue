@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { animate } from '@oku-ui/motion'
+import { animate } from 'motion'
 
 const props = defineProps({
   progress: {
@@ -21,10 +21,11 @@ const isHovered = ref(false)
 
 const onComplete = async (el) => {
   await animate(el, {
-    scale: [1, 1.1, 1],
+    scale: [1, 1.2, 1],
     backgroundColor: ['#3B82F6', '#22C55E']
   }, {
-    duration: 0.3
+    duration: 0.4,
+    easing: [0.25, 0.1, 0.25, 1]
   })
 }
 </script>

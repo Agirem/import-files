@@ -1,5 +1,5 @@
 <script setup>
-import { animate } from '@oku-ui/motion'
+import { animate } from 'motion'
 import FileItem from './FileItem.vue'
 
 const props = defineProps({
@@ -12,13 +12,18 @@ const props = defineProps({
 const emit = defineEmits(['retry', 'remove'])
 
 const onFileEnter = async (el) => {
-  await animate(el, {
-    opacity: [0, 1],
-    y: [20, 0]
-  }, {
-    duration: 0.3,
-    delay: 0.1
-  })
+  await animate(
+    el,
+    {
+      opacity: [0, 1],
+      y: [50, 0],
+      scale: [0.9, 1]
+    },
+    {
+      duration: 0.5,
+      easing: [.22, .03, .26, 1]
+    }
+  )
 }
 </script>
 
@@ -27,6 +32,8 @@ const onFileEnter = async (el) => {
     <TransitionGroup
       :css="false"
       @enter="onFileEnter"
+      tag="div"
+      class="space-y-2"
     >
       <FileItem
         v-for="(file, index) in files"

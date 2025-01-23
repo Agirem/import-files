@@ -1,5 +1,5 @@
 <script setup>
-import { animate } from '@oku-ui/motion'
+import { animate } from 'motion'
 import ProgressCircle from './ProgressCircle.vue'
 
 const props = defineProps({
@@ -16,11 +16,18 @@ const props = defineProps({
 const emit = defineEmits(['retry', 'remove'])
 
 const shakeElement = async (el) => {
+  // Animation combinée avec motion
   await animate(el, 
-    { x: [0, -10, 10, -10, 10, -5, 5, 0] }, 
-    { 
-      duration: 0.4,
-      easing: [.36, .07, .19, .97]
+    {
+      x: [0, -35, 35, -35, 35, -20, 20, -10, 10, 0],
+      rotate: [0, -6, 6, -6, 6, -3, 3, -1, 1, 0],
+      border: ['none', '2px solid rgba(239, 68, 68, 1)', '2px solid rgba(239, 68, 68, 1)', '2px solid rgba(239, 68, 68, 0)'],
+      backgroundColor: ['transparent', 'rgba(239, 68, 68, 0.1)', 'rgba(239, 68, 68, 0.1)', 'transparent']
+    },
+    {
+      duration: 0.8,
+      easing: [0.25, 0.1, 0.25, 1],
+      repeat: 1
     }
   )
 }
@@ -39,7 +46,7 @@ const handleRetry = (event) => {
 <template>
   <div 
     :data-file-id="file.name"
-    class="group flex items-center justify-between p-3 hover:bg-[#FAFAFA] dark:hover:bg-[#E2E8F0] rounded-lg transition-all duration-200 file-item"
+    class="group flex items-center justify-between p-3 hover:bg-[#FAFAFA] dark:hover:bg-[#E2E8F0] rounded-lg transition-all duration-500 file-item"
   >
     <!-- Icône et nom du fichier -->
     <div class="flex items-center space-x-3">
@@ -48,7 +55,7 @@ const handleRetry = (event) => {
         <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:dark:text-[#252F3F]">{{ file.name }}</span>
         <span class="text-xs" :class="[
           file.status === 'error' 
-            ? 'text-red-500' 
+            ? 'text-red-500 dark:text-red-500' 
             : 'text-gray-500 dark:text-gray-400 group-hover:dark:text-[#6B7280]'
         ]">
           {{ file.size }} / {{ file.totalSize }} - {{ file.status === 'error' ? 'Échec. Réessayer' : file.status === 'completed' ? 'Terminé' : `${Math.round(file.progress)}% complété` }}
@@ -68,10 +75,10 @@ const handleRetry = (event) => {
 
       <!-- Actions pour les fichiers en erreur -->
       <div v-if="file.status === 'error'" class="flex items-center space-x-2">
-        <button @click="handleRetry" class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400">
+        <button @click="handleRetry" class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400 transition-transform hover:rotate-180 duration-300">
           <img src="../assets/icons/refresh.svg" alt="Réessayer" class="w-5 h-5">
         </button>
-        <button @click="$emit('remove', index)" class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400">
+        <button @click="$emit('remove', index)" class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400 hover:animate-shake">
           <img src="../assets/icons/delete.svg" alt="Supprimer" class="w-5 h-5">
         </button>
       </div>
@@ -79,9 +86,23 @@ const handleRetry = (event) => {
       <!-- Action pour les fichiers complétés -->
       <button v-if="file.status === 'completed'"
               @click="$emit('remove', index)" 
-              class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400">
+              class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400 hover:animate-shake">
         <img src="../assets/icons/delete.svg" alt="Supprimer" class="w-5 h-5">
       </button>
     </div>
   </div>
-</template> 
+</template>
+
+<style scoped>
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px) rotate(-2deg); }
+  40% { transform: translateX(2px) rotate(2deg); }
+  60% { transform: translateX(-2px) rotate(-1deg); }
+  80% { transform: translateX(2px) rotate(1deg); }
+}
+
+.hover\:animate-shake:hover {
+  animation: shake 0.5s ease-in-out;
+}
+</style> 

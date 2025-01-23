@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { animate } from '@oku-ui/motion'
+import { animate } from 'motion'
 
 const props = defineProps({
   isDarkMode: {
@@ -18,9 +18,11 @@ const draggedFileType = ref('')
 const onDropZoneEnter = async (el) => {
   await animate(el, {
     opacity: [0, 1],
-    y: [10, 0]
+    y: [20, 0],
+    scale: [0.95, 1]
   }, {
-    duration: 0.2
+    duration: 0.3,
+    easing: [0.25, 0.1, 0.25, 1]
   })
 }
 
@@ -101,7 +103,8 @@ const handleFileDrop = (event) => {
       ]"
     >
       <div class="flex flex-col items-center" :class="{ 'opacity-0': isDragging }">
-        <svg width="30" height="36" viewBox="0 0 30 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-4">
+        <svg width="30" height="36" viewBox="0 0 30 36" fill="none" xmlns="http://www.w3.org/2000/svg" 
+             class="mb-4 transform-origin-top hover:animate-paper-wave transition-transform duration-300">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M24.4388 3.19609C24.8132 3.22199 25.187 3.25043 25.56 3.28139C28.1255 3.49432 30.0001 5.67135 30.0001 8.18035V24.25C30.0001 27.0114 27.7615 29.25 25.0001 29.25V25.5C25.0001 15.6301 17.3741 7.5414 7.69287 6.80469C8.23315 4.91878 9.85942 3.45409 11.9402 3.28139C12.3132 3.25043 12.6869 3.22199 13.0613 3.19609C13.8945 1.59411 15.5695 0.5 17.5001 0.5H20.0001C21.9306 0.5 23.6056 1.59411 24.4388 3.19609ZM15.0001 5.5C15.0001 4.11929 16.1194 3 17.5001 3H20.0001C21.3808 3 22.5001 4.11929 22.5001 5.5H15.0001Z" :fill="isDarkMode ? '#F8FAFC' : '#1E293B'"/>
           <path d="M0 12.375C0 10.6491 1.39911 9.25 3.125 9.25H3.75C7.20178 9.25 10 12.0482 10 15.5V18.625C10 20.3509 11.3991 21.75 13.125 21.75H16.25C19.7018 21.75 22.5 24.5482 22.5 28V32.375C22.5 34.1009 21.1009 35.5 19.375 35.5H3.125C1.39911 35.5 0 34.1009 0 32.375V12.375Z" :fill="isDarkMode ? '#F8FAFC' : '#1E293B'"/>
           <path d="M12.5 15.5C12.5 13.3116 11.6966 11.3108 10.3687 9.77651C16.0335 11.2563 20.4937 15.7165 21.9735 21.3813C20.4392 20.0534 18.4384 19.25 16.25 19.25H13.125C12.7798 19.25 12.5 18.9702 12.5 18.625V15.5Z" :fill="isDarkMode ? '#F8FAFC' : '#1E293B'"/>
@@ -126,4 +129,32 @@ const handleFileDrop = (event) => {
       </Transition>
     </div>
   </div>
-</template> 
+</template>
+
+<style scoped>
+@keyframes paper-wave {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(-5deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(-4px);
+  }
+  75% {
+    transform: rotate(5deg) translateY(-2px);
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+.transform-origin-top {
+  transform-origin: top center;
+}
+
+.hover\:animate-paper-wave:hover {
+  animation: paper-wave 2s ease-in-out infinite;
+}
+</style> 
