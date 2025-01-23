@@ -76,10 +76,10 @@ const handleRetry = (event) => {
       <!-- Actions pour les fichiers en erreur -->
       <div v-if="file.status === 'error'" class="flex items-center space-x-2">
         <button @click="handleRetry" class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400 transition-transform hover:rotate-180 duration-300">
-          <img src="../assets/icons/refresh.svg" alt="Réessayer" class="w-5 h-5">
+          <img src="@/assets/icons/refresh.svg" alt="Réessayer" class="w-5 h-5">
         </button>
         <button @click="$emit('remove', index)" class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400 hover:animate-shake">
-          <img src="../assets/icons/delete.svg" alt="Supprimer" class="w-5 h-5">
+          <img src="@/assets/icons/delete.svg" alt="Supprimer" class="w-5 h-5">
         </button>
       </div>
 
@@ -87,7 +87,7 @@ const handleRetry = (event) => {
       <button v-if="file.status === 'completed'"
               @click="$emit('remove', index)" 
               class="p-1 text-gray-400 dark:text-[#E2E8F0] hover:text-gray-600 dark:hover:text-gray-400 hover:animate-shake">
-        <img src="../assets/icons/delete.svg" alt="Supprimer" class="w-5 h-5">
+        <img src="@/assets/icons/delete.svg" alt="Supprimer" class="w-5 h-5">
       </button>
     </div>
   </div>
