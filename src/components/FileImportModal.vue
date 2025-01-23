@@ -8,7 +8,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'toggleTheme'])
 
 const fileName = ref('')
 const description = ref('')
@@ -16,6 +16,12 @@ const fileCount = ref(0)
 const isDragging = ref(false)
 const uploadedFiles = ref([])
 const hoverStates = ref({})
+const isDarkMode = ref(false)
+
+const toggleTheme = () => {
+  isDarkMode.value = !isDarkMode.value
+  emit('toggleTheme', isDarkMode.value)
+}
 
 const closeModal = () => {
   emit('close')
@@ -130,7 +136,7 @@ const setHoverState = (index, state) => {
 
 <template>
   <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg w-full max-w-xl">
+    <div class="bg-white rounded-lg w-full max-w-xl flex flex-col max-h-[90vh]">
       <!-- Header -->
       <div class="flex justify-between items-center p-4 border-b">
         <h2 class="text-xl font-semibold">Processus d'importation</h2>
@@ -141,8 +147,8 @@ const setHoverState = (index, state) => {
         </button>
       </div>
 
-      <!-- Content -->
-      <div class="p-4 space-y-4">
+      <!-- Content avec scroll -->
+      <div class="p-4 space-y-4 overflow-y-auto custom-scrollbar flex-1">
         <!-- Nom du fichier -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Nom du fichier</label>
@@ -267,7 +273,7 @@ const setHoverState = (index, state) => {
       </div>
 
       <!-- Footer -->
-      <div class="flex justify-end space-x-3 p-4 border-t">
+      <div class="flex justify-end space-x-3 p-4 border-t mt-auto">
         <button
           @click="closeModal"
           class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-800 border border-[#E2E8F0] rounded"
@@ -285,6 +291,30 @@ const setHoverState = (index, state) => {
 </template>
 
 <style scoped>
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #94A3B8 #F1F5F9;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #94A3B8;
+  border-radius: 4px;
+  border: 2px solid #F1F5F9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #64748B;
+}
+
 .modal-width {
   max-width: 700px;
 }
