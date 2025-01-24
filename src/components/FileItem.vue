@@ -1,8 +1,8 @@
 <script setup>
 import { animate } from 'motion'
 import ProgressCircle from './ProgressCircle.vue'
-import refreshIcon from '../assets/icons/refresh.svg'
-import deleteIcon from '../assets/icons/delete.svg'
+import refreshIcon from '@/assets/icons/refresh.svg'
+import deleteIcon from '@/assets/icons/delete.svg'
 
 const props = defineProps({
   file: {

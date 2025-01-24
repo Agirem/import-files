@@ -6,9 +6,9 @@ import ModalFooter from './ModalFooter.vue'
 import CustomInput from './CustomInput.vue'
 import FileUploadZone from './FileUploadZone.vue'
 import FileList from './FileList.vue'
-import excelIcon from '../assets/icons/excel.png'
-import jsonIcon from '../assets/icons/json.png'
-import wordIcon from '../assets/icons/word.png'
+import excelIcon from '@/assets/icons/excel.png'
+import jsonIcon from '@/assets/icons/json.png'
+import wordIcon from '@/assets/icons/word.png'
 
 const props = defineProps({
   isOpen: {
