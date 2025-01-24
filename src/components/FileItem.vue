@@ -47,7 +47,7 @@ const handleRetry = (event) => {
 const getFileIcon = (type) => {
   switch (type) {
     case 'excel':
-      return new URL('../assets/icons/excel.png', import.meta.url).href
+      return new URL('../assets/icons/Excel.png', import.meta.url).href
     case 'json':
       return new URL('../assets/icons/json.png', import.meta.url).href
     case 'word':
