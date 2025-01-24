@@ -6,6 +6,9 @@ import ModalFooter from './ModalFooter.vue'
 import CustomInput from './CustomInput.vue'
 import FileUploadZone from './FileUploadZone.vue'
 import FileList from './FileList.vue'
+import excelIcon from '../assets/icons/excel.png'
+import jsonIcon from '../assets/icons/json.png'
+import wordIcon from '../assets/icons/word.png'
 
 const props = defineProps({
   isOpen: {
@@ -45,11 +48,11 @@ const getFileIcon = (filename) => {
   const type = getFileType(filename)
   switch (type) {
     case 'excel':
-      return './src/assets/icons/excel.png'
+      return excelIcon
     case 'json':
-      return './src/assets/icons/json.png'
+      return jsonIcon
     case 'word':
-      return './src/assets/icons/word.png'
+      return wordIcon
     default:
       return null
   }
