@@ -45,11 +45,11 @@ const getFileIcon = (filename) => {
   const type = getFileType(filename)
   switch (type) {
     case 'excel':
-      return '../assets/icons/excel.png'
+      return './src/assets/icons/excel.png'
     case 'json':
-      return '../assets/icons/json.png'
+      return './src/assets/icons/json.png'
     case 'word':
-      return '../assets/icons/word.png'
+      return './src/assets/icons/word.png'
     default:
       return null
   }
