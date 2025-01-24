@@ -6,9 +6,6 @@ import ModalFooter from './ModalFooter.vue'
 import CustomInput from './CustomInput.vue'
 import FileUploadZone from './FileUploadZone.vue'
 import FileList from './FileList.vue'
-import excelIcon from '@/assets/icons/excel.png'
-import jsonIcon from '@/assets/icons/json.png'
-import wordIcon from '@/assets/icons/word.png'
 
 const props = defineProps({
   isOpen: {
@@ -44,20 +41,6 @@ const getFileType = (filename) => {
   return 'unknown'
 }
 
-const getFileIcon = (filename) => {
-  const type = getFileType(filename)
-  switch (type) {
-    case 'excel':
-      return excelIcon
-    case 'json':
-      return jsonIcon
-    case 'word':
-      return wordIcon
-    default:
-      return null
-  }
-}
-
 const simulateUploadProgress = (fileIndex) => {
   let progress = 0
   const interval = setInterval(() => {
@@ -80,8 +63,7 @@ const handleFileDrop = (files) => {
       totalSize: formatFileSize(file.size),
       progress: 0,
       status: fileType === 'word' ? 'error' : 'uploading',
-      type: fileType,
-      icon: getFileIcon(file.name)
+      type: fileType
     })
     
     if (fileType !== 'word') {

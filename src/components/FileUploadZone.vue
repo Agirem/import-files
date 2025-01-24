@@ -1,9 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import { animate } from 'motion'
-import excelIcon from '@/assets/icons/excel.png'
-import jsonIcon from '@/assets/icons/json.png'
-import wordIcon from '@/assets/icons/word.png'
 
 const props = defineProps({
   isDarkMode: {
@@ -42,11 +39,11 @@ const getFileIcon = (filename) => {
   const type = getFileType(filename)
   switch (type) {
     case 'excel':
-      return excelIcon
+      return new URL('../assets/icons/excel.png', import.meta.url).href
     case 'json':
-      return jsonIcon
+      return new URL('../assets/icons/json.png', import.meta.url).href
     case 'word':
-      return wordIcon
+      return new URL('../assets/icons/word.png', import.meta.url).href
     default:
       return null
   }

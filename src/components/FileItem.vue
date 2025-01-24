@@ -1,8 +1,8 @@
 <script setup>
 import { animate } from 'motion'
 import ProgressCircle from './ProgressCircle.vue'
-import refreshIcon from '@/assets/icons/refresh.svg'
-import deleteIcon from '@/assets/icons/delete.svg'
+import refreshIcon from '../assets/icons/refresh.svg'
+import deleteIcon from '../assets/icons/delete.svg'
 
 const props = defineProps({
   file: {
@@ -43,6 +43,19 @@ const handleRetry = (event) => {
   }
   emit('retry', props.index)
 }
+
+const getFileIcon = (type) => {
+  switch (type) {
+    case 'excel':
+      return new URL('../assets/icons/excel.png', import.meta.url).href
+    case 'json':
+      return new URL('../assets/icons/json.png', import.meta.url).href
+    case 'word':
+      return new URL('../assets/icons/word.png', import.meta.url).href
+    default:
+      return null
+  }
+}
 </script>
 
 <template>
@@ -52,7 +65,7 @@ const handleRetry = (event) => {
   >
     <!-- Icône et nom du fichier -->
     <div class="flex items-center space-x-3">
-      <img v-if="file.icon" :src="file.icon" :alt="file.type" class="w-8 h-8 object-contain">
+      <img v-if="file.type" :src="getFileIcon(file.type)" :alt="file.type" class="w-8 h-8 object-contain">
       <div class="flex flex-col">
         <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:dark:text-[#252F3F]">{{ file.name }}</span>
         <span class="text-xs" :class="[
