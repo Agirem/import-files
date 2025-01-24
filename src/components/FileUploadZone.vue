@@ -14,6 +14,7 @@ const emit = defineEmits(['fileDropped'])
 const isDragging = ref(false)
 const draggedFileName = ref('')
 const draggedFileType = ref('')
+const fileInput = ref(null)
 
 const onDropZoneEnter = async (el) => {
   await animate(el, {
@@ -82,6 +83,19 @@ const handleFileDrop = (event) => {
     emit('fileDropped', files)
   }
 }
+
+const openFileSelector = () => {
+  fileInput.value.click()
+}
+
+const handleFileSelect = (event) => {
+  const files = event.target.files
+  if (files.length > 0) {
+    emit('fileDropped', files)
+  }
+  // Réinitialiser l'input pour permettre de sélectionner le même fichier plusieurs fois
+  event.target.value = ''
+}
 </script>
 
 <template>
@@ -90,16 +104,24 @@ const handleFileDrop = (event) => {
     <div class="flex items-center text-sm text-slate-500 dark:text-slate-400 mt-1 space-x-4">
       <p>Vous pouvez ajouter plus de 10 fichiers.</p>
     </div>
+    <input
+      ref="fileInput"
+      type="file"
+      multiple
+      class="hidden"
+      @change="handleFileSelect"
+    >
     <div
+      @click="openFileSelector"
       @drop="handleFileDrop"
       @dragover="preventDefault"
       @dragenter="preventDefault"
       @dragleave="handleDragLeave"
-      class="mt-2 border border-dashed rounded-lg p-8 text-center transition-colors relative"
+      class="mt-2 border border-dashed rounded-lg p-8 text-center transition-colors relative cursor-pointer"
       :class="[
         isDragging 
           ? 'border-[#EFF6FF] bg-[#93C5FD] dark:border-blue-500 dark:bg-blue-900' 
-          : 'border-[#CBD5E1] dark:border-gray-600 bg-[#F8FAFC] dark:bg-gray-800'
+          : 'border-[#CBD5E1] dark:border-gray-600 bg-[#F8FAFC] dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'
       ]"
     >
       <div class="flex flex-col items-center" :class="{ 'opacity-0': isDragging }">
