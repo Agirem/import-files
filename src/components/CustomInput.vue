@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   modelValue: {
     type: [String, Number],
     default: ''
@@ -32,6 +34,8 @@ defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
+const characterCount = computed(() => props.modelValue?.toString().length || 0)
+
 const updateValue = (event) => {
   const value = event.target.value
   if (!props.maxLength || value.length <= props.maxLength) {
@@ -53,7 +57,7 @@ const updateValue = (event) => {
         class="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[#0F172A] dark:focus:ring-[#F8FAFC] placeholder-gray-400 dark:placeholder-gray-500"
       ></textarea>
       <div v-if="showCount" class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-        {{ modelValue.length }}/{{ maxLength }}
+        {{ characterCount }}/{{ maxLength }}
       </div>
     </template>
     <input
