@@ -1,5 +1,13 @@
-# Vue 3 + Vite
+# Import Files Section - UIKIT2025
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is the integration of **Import Files**, the first component of the **UIKI2025** library, created by **Johan Gaby M.**
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+The Figma link is [here](https://www.figma.com/design/v3ycmPFQY6S7PQj40MozpV/(WIP)-UIKit_2025?node-id=81-3145&t=QyE8R6eoTtSDFGQP-0).
+
+The stack used includes **Vue 3** and **Vite**.
+
+## How to run the project
+
+1. Clone the repository
+2. Run `npm install`
+3. Run `npm run dev`
